@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const rules = require('./webpack.rules');
 const plugins = require('./webpack.plugins');
+const path = require("path");
 
 rules.push({
   test: /\.css$/,
@@ -8,11 +9,15 @@ rules.push({
 });
 
 module.exports = {
+  target: 'electron18-renderer',
   module: {
     rules,
   },
   plugins: plugins,
   resolve: {
-    extensions: ['.js', '.ts', '.jsx', '.tsx', '.css']
+    extensions: ['.js', '.ts', '.jsx', '.tsx', '.css'],
+    alias: {
+      '@': path.join(__dirname, './src/'),
+    },
   },
 };
