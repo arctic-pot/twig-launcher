@@ -90,10 +90,14 @@
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
     "@mui/material": "^5.7.0",
+    "@types/fs-extra": "^9.0.13",
     "electron-squirrel-startup": "^1.0.0",
+    "fs-extra": "^10.1.0",
     "got": "^12.0.4",
     "react": "^18.1.0",
-    "react-dom": "^18.1.0"
+    "react-dom": "^18.1.0",
+    "react-router-dom": "6",
+    "recoil": "^0.7.3-alpha.2"
   },
   "sideEffects": [
     "*.css",
