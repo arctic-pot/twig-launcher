@@ -2,30 +2,17 @@ import React, { PropsWithChildren, useEffect, useState } from 'react';
 import {
   Alert,
   AlertTitle,
-  Avatar,
-  Box,
   Button,
-  Icon,
-  Link,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
   Paper,
   Radio,
   Stack,
   TextField,
   Typography,
 } from '@mui/material';
-import { shell } from 'electron';
-import { useRecoilState } from 'recoil';
-import { accountTypeState } from '@/base/account';
-import { ReactJSXElementChildrenAttribute } from '@emotion/react/types/jsx-namespace';
 
-const links = {
-  BUY_MINECRAFT: 'https://www.minecraft.net/zh-hans/store/minecraft-java-edition',
-};
+// const links = {
+//   BUY_MINECRAFT: 'https://www.minecraft.net/zh-hans/store/minecraft-java-edition',
+// };
 
 const AccountTypeHeader = ({
   children,
@@ -61,14 +48,15 @@ export default function AccountsPage(): React.ReactElement {
     <Stack
       direction="column"
       gap={2}
-      p={1}
+      p={2}
       sx={{ width: '100%', height: '100%', boxSizing: 'border-box' }}
     >
       {accountType === AccountType.offline && (
         <>
           <Alert severity="warning">
             <AlertTitle>Using an offline account</AlertTitle>
-            Due to using an offline account, you have a changeable UUID and not customizable skin.<br />
+            Due to using an offline account, you have a changeable UUID and not customizable skin.
+            <br />
             Notice that you can't join an online-mode server using an offline account.
           </Alert>
         </>

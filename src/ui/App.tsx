@@ -8,7 +8,6 @@ import {
   Icon,
   Stack,
   styled,
-  Theme,
   ThemeProvider,
   Toolbar,
   Typography,
@@ -21,7 +20,7 @@ import { HashRouter, Route, Routes } from 'react-router-dom';
 import Navigation from '@/ui/Navigation';
 import AccountsPage from '@/ui/pages/AccountsPage';
 import { RecoilRoot } from 'recoil';
-import { VersionsPage } from "@/ui/pages/VersionsPage";
+import { VersionsPage } from '@/ui/pages/VersionsPage';
 
 const OperationButton = styled(ButtonBase)({
   width: 48,
@@ -107,7 +106,7 @@ export default function App(): React.ReactElement {
                   '& .nd': { WebkitAppRegion: 'no-drag' },
                 }}
               >
-                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                <Typography variant="h6" component="div" sx={{ flexGrow: 1, textAlign: 'center' }}>
                   Twig Launcher
                 </Typography>
                 <Stack

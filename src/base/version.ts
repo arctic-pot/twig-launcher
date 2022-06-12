@@ -1,4 +1,6 @@
 import { atom } from 'recoil';
+import fs from 'fs-extra';
+import * as path from 'path';
 
 export const versionState = atom({
   key: 'version',
@@ -40,6 +42,31 @@ export interface IGameVersion {
   rootPath: string;
   patches?: IGamePatch[];
   icon: GameIcon;
+  release?: boolean;
   // The minecraft version
   version?: string;
+}
+
+export async function getVersionsFrom(paths: string[]): Promise<IGameVersion[]> {
+  return (
+    paths
+      // .minecraft directory
+      .flatMap((rootPath) => {
+        const versionsPath = path.resolve(rootPath, './versions');
+        return fs.readdirSync(versionsPath).map((directoryName) => {
+          try {
+            const directory = path.resolve(rootPath, 'versions', directoryName);
+            return {
+              displayName: directoryName,
+              path: directory,
+              rootPath: rootPath,
+              icon: GameIcon.grassBlock,
+            };
+          } catch (e) {
+            return null;
+          }
+        });
+      })
+      .filter((version) => version)
+  );
 }

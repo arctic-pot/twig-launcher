@@ -36,13 +36,13 @@ const createWindow = (): void => {
   ipcMain.on('maximize', () => mainWindow.maximize());
   ipcMain.on('unmaximize', () => mainWindow.unmaximize());
 
-  mainWindow.on('maximize', () => mainWindow.webContents.send('maximize'))
-  mainWindow.on('unmaximize', () => mainWindow.webContents.send('unmaximize'))
+  mainWindow.on('maximize', () => mainWindow.webContents.send('maximize'));
+  mainWindow.on('unmaximize', () => mainWindow.webContents.send('unmaximize'));
+
+  app.requestSingleInstanceLock();
 };
 
 app.applicationMenu = null;
-
-app.requestSingleInstanceLock();
 
 app.on('ready', createWindow);
 

@@ -10,7 +10,7 @@ export const accountTypeState = atom({
   default: localStorage.accountType as AccountType,
 });
 
-export type AccountType = 'microsoft' | 'offline'
+export type AccountType = 'microsoft' | 'offline';
 
 export interface IAccount {
   displayName: string;

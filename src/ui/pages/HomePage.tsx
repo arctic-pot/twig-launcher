@@ -1,10 +1,7 @@
 import React from 'react';
 import {
-  Alert,
-  AlertTitle,
   Box,
   Button,
-  ButtonGroup,
   Chip,
   Divider,
   Icon,
@@ -15,7 +12,7 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { getPatchName, getVersionDetails, versionState } from '@/base/version';
+import { getVersionDetails, versionState } from '@/base/version';
 import { shell } from 'electron';
 
 export default function HomePage(): React.ReactElement {
@@ -29,16 +26,11 @@ export default function HomePage(): React.ReactElement {
         <Box
           sx={{
             position: 'absolute',
-            left: 32,
-            right: 32,
-            top: 32,
+            left: 0,
+            bottom: 0,
           }}
         >
-          <Alert severity="info">
-            <AlertTitle>Dev version</AlertTitle>
-            This is a unstable development version. If you aren't a developer, download the
-            executable file or the installer and run.
-          </Alert>
+          <Typography fontSize={12}>Debug version / 调试版本</Typography>
         </Box>
       )}
       <Stack
