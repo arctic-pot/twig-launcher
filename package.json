@@ -97,7 +97,8 @@
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-router-dom": "6",
-    "recoil": "^0.7.3-alpha.2"
+    "recoil": "^0.7.3-alpha.2",
+    "yaml": "^2.1.1"
   },
   "sideEffects": [
     "*.css",

@@ -26,4 +26,14 @@ module.exports = [
       },
     },
   },
+  {
+    test: /\.webp?/,
+    exclude: /(node_modules|\.webpack)/,
+    type: 'asset',
+    parser: {
+      dataUrlCondition: {
+        maxSize: 16 * 1024 // 16kb
+      }
+    }
+  },
 ];

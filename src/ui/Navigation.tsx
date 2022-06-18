@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from 'react';
+import React from 'react';
 import {
   Box,
   Divider,
@@ -7,19 +7,17 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  Tab,
-  Tabs,
 } from '@mui/material';
-import { useHref, useLocation, useMatch, useNavigate } from 'react-router-dom';
+import { useMatch, useNavigate } from 'react-router-dom';
+
+// interface NavItemData {
+//   text: string;
+//   icon: string;
+//   page: string;
+// }
 
 // export const useNavigate = (): [Page, React.Dispatch<React.SetStateAction<Page>>] =>
 //   useContext(NavContext);
-
-interface NavItemData {
-  text: string;
-  icon: string;
-  page: string;
-}
 
 const NavListItem = ({ text, icon, page }: { text: string; icon: string; page: string }) => {
   const navigate = useNavigate();
@@ -48,7 +46,7 @@ const NavListItem = ({ text, icon, page }: { text: string; icon: string; page: s
   );
 };
 
-const Navs: NavItemData[] = [];
+// const Navs: NavItemData[] = [];
 
 export default function Navigation(): React.ReactElement {
   return (
@@ -75,6 +73,10 @@ export default function Navigation(): React.ReactElement {
           <NavListItem text="Settings" icon="settings" page="settings" />
           <NavListItem text="Info" icon="info" page="info" />
           <NavListItem text="Sponsor" icon="redeem" page="sponsor" />
+        </List>
+        <Divider />
+        <List>
+          <NavListItem text="Extensions" icon="extension" page="extensions" />
         </List>
         {process.env.NODE_ENV === 'development' && (
           <>

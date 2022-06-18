@@ -22,6 +22,9 @@ export default function HomePage(): React.ReactElement {
 
   return (
     <Box sx={{ width: '100%', height: '100%', position: 'relative' }}>
+      {/*<Box sx={{ position: 'absolute', top: 16, left: 16, right: 16 }}>
+      </Box>*/}
+
       {process.env.NODE_ENV === 'development' && (
         <Box
           sx={{

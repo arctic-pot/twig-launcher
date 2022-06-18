@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain } from 'electron';
+import { app, BrowserWindow, ipcMain, dialog } from 'electron';
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -35,6 +35,9 @@ const createWindow = (): void => {
   ipcMain.on('minimize', () => mainWindow.minimize());
   ipcMain.on('maximize', () => mainWindow.maximize());
   ipcMain.on('unmaximize', () => mainWindow.unmaximize());
+
+  ipcMain.handle('open-dialog', (_, options) => dialog.showOpenDialog(mainWindow, options));
+  ipcMain.handle('save-dialog', (_, options) => dialog.showSaveDialog(mainWindow, options));
 
   mainWindow.on('maximize', () => mainWindow.webContents.send('maximize'));
   mainWindow.on('unmaximize', () => mainWindow.webContents.send('unmaximize'));

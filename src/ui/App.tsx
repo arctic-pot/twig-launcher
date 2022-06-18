@@ -21,6 +21,7 @@ import Navigation from '@/ui/Navigation';
 import AccountsPage from '@/ui/pages/AccountsPage';
 import { RecoilRoot } from 'recoil';
 import { VersionsPage } from '@/ui/pages/VersionsPage';
+import SettingsPage from "@/ui/pages/SettingsPage";
 
 const OperationButton = styled(ButtonBase)({
   width: 48,
@@ -138,9 +139,10 @@ export default function App(): React.ReactElement {
               <Box sx={{ flexGrow: 1 }}>
                 <Box sx={{ width: '100%', height: '100%' }}>
                   <Routes>
-                    <Route path="/" element={<HomePage />} />
+                    <Route index element={<HomePage />} />
                     <Route path="/accounts" element={<AccountsPage />} />
                     <Route path="/versions" element={<VersionsPage />} />
+                    <Route path="/settings" element={<SettingsPage />} />
                     <Route path="/sponsor" element={<SponsorPage />} />
                   </Routes>
                 </Box>
