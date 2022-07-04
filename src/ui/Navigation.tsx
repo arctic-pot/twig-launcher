@@ -81,7 +81,7 @@ export default function Navigation(): React.ReactElement {
         {process.env.NODE_ENV === 'development' && (
           <>
             <Divider />
-            <List dense>
+            <List>
               <NavListItem text="Development" icon="home_repair_service" page="/dev" />
             </List>
           </>

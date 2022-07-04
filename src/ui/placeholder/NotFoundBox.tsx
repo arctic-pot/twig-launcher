@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { Icon, Stack, Typography } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 
 export default memo(function NotFoundBox(): React.ReactElement {
   // const emotionList = [

@@ -63,6 +63,7 @@ export function VersionsPage(): React.ReactElement {
           zIndex: 2,
         }}
       >
+        {/* The margin part will actually display as 80% opacity background */}
         <Paper sx={{ m: 1 }}>
           <Stack direction="row" gap={1} p={1}>
             <InputBase
@@ -73,12 +74,12 @@ export function VersionsPage(): React.ReactElement {
             />
             <Tooltip title="Import">
               <IconButton>
-                <Icon>add</Icon>
+                <Icon>download</Icon>
               </IconButton>
             </Tooltip>
-            <Tooltip title="Download">
+            <Tooltip title="Add">
               <IconButton>
-                <Icon>download</Icon>
+                <Icon>add</Icon>
               </IconButton>
             </Tooltip>
           </Stack>

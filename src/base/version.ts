@@ -49,45 +49,53 @@ export interface IGameVersion {
   version?: string;
 }
 
+/**
+ * Scan a `.minecraft` directory to get versions from it.
+ * @param paths The `.minecraft` directory
+ * @return A promise with a list of versions.
+ */
 export async function getVersionsFrom(paths: string[]): Promise<IGameVersion[]> {
-  return (
-    paths
-      // .minecraft directory
-      .flatMap((rootPath) => {
-        const versionsPath = path.resolve(rootPath, './versions');
-        return fs.readdirSync(versionsPath).map((directoryName) => {
-          try {
-            const directory = path.resolve(rootPath, 'versions', directoryName);
-            // const jarPath = path.resolve(directory, `${directoryName}.jar`);
-            const jsonPath = path.resolve(directory, `${directoryName}.json`);
-            const verInfoPath = path.resolve(directory, 'version_info.yml');
-            const manifest = fs.readJSONSync(jsonPath);
-            // fs.removeSync(verInfoPath);
-            // Init a version info file if it doesn't exist
-            if (!fs.existsSync(verInfoPath)) {
-              const defaultContent = YAML.stringify({
-                version: '1.0',
-                launcherData: {
-                  twig: {
-                    icon: GameIcon.furnace,
-                  },
+  return paths
+    .flatMap((rootPath) => {
+      // Get the versions directory
+      const versionsPath = path.resolve(rootPath, './versions');
+      return fs.readdirSync(versionsPath).map((directoryName) => {
+        try {
+          const directory = path.resolve(versionsPath, directoryName);
+          // Get the client.json and its data
+          // Client.json had renamed into <version name>.json.
+          const jsonPath = path.resolve(directory, `${directoryName}.json`);
+          const verInfoPath = path.resolve(directory, 'version_info.yml');
+          const manifest = fs.readJSONSync(jsonPath);
+          // fs.removeSync(verInfoPath);
+          // Try to read version info path for visual data and else.
+          // Init a version info file if it doesn't exist
+          if (!fs.existsSync(verInfoPath)) {
+            const defaultContent = YAML.stringify({
+              version: '1.0',
+              launcherData: {
+                twig: {
+                  icon: GameIcon.furnace,
                 },
-              });
-              fs.writeFileSync(verInfoPath, defaultContent);
-            }
-            const verInfo = YAML.parse(fs.readFileSync(verInfoPath, 'utf-8'))?.launcherData?.twig ?? {};
-            return {
-              displayName: manifest.id,
-              path: directory,
-              rootPath: rootPath,
-              icon: verInfo.icon,
-              jar: manifest.jar,
-            };
-          } catch (e) {
-            return null;
+              },
+            });
+            fs.writeFileSync(verInfoPath, defaultContent);
           }
-        });
-      })
-      .filter((version) => version)
-  );
+          const verInfo =
+            YAML.parse(fs.readFileSync(verInfoPath, 'utf-8'))?.launcherData?.twig ?? {};
+          return {
+            displayName: manifest.id,
+            path: directory,
+            rootPath: rootPath,
+            icon: verInfo.icon,
+            jar: manifest.jar,
+          };
+        } catch (e) {
+          // When catching unexpected errors, return nothing
+          return null;
+        }
+      });
+    })
+    // Only keep true values, which removes `null`.
+    .filter((version) => version);
 }

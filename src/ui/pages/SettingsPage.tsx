@@ -10,7 +10,9 @@ import {
 } from '@mui/material';
 import { ipcRenderer } from 'electron';
 
+// This is a hook which extends the origin setState.
 const useLocalBindState = (key: string, defaultValue?: unknown) => {
+  // g stands for getter, s stands for setter.
   const [g, s] = useState(JSON.parse(localStorage[key] ?? '""') ?? defaultValue);
   useEffect(() => {
     localStorage[key] = JSON.stringify(g);
