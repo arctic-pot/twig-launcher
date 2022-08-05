@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   Box,
   Icon,
   IconButton,
   InputBase,
-  List,
+  // List,
   ListItemAvatar,
   ListItemButton,
   ListItemIcon,
@@ -26,7 +26,8 @@ import { useRecoilState } from 'recoil';
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-ignore
 import GrassBlock from 'assets/version-icons/grass-block.webp'; // @ts-ignore
-import Furnace from 'assets/version-icons/furnace.webp'; // @ts-ignore
+import Furnace from 'assets/version-icons/furnace.webp';
+// import { act } from 'react-dom/test-utils'; // @ts-ignore
 /* eslint-enable @typescript-eslint/ban-ts-comment */
 
 export function VersionsPage(): React.ReactElement {
@@ -39,11 +40,19 @@ export function VersionsPage(): React.ReactElement {
     localStorage.version = JSON.stringify(activeVersion);
   }, [activeVersion]);
 
+  // Load versions from paths
   useEffect(() => {
     getVersionsFrom(JSON.parse(localStorage.gamePaths)).then((gameVersions) =>
       setVersions(gameVersions)
     );
   }, []);
+
+  // Check if the `version` is selected
+  const isSelected = useCallback(
+    (version: IGameVersion) =>
+      activeVersion.displayName === version.displayName && activeVersion.path === version.path,
+    [activeVersion]
+  );
 
   return (
     <Stack
@@ -110,17 +119,25 @@ export function VersionsPage(): React.ReactElement {
               right: 0,
             }}
           >
-            <List disablePadding sx={{ position: 'relative', pt: 11 }}>
+            <Stack
+              direction="row"
+              gap={1}
+              sx={{ position: 'relative', pt: 11, flexWrap: 'wrap', px: 1 }}
+            >
               {filteredVersion.map((version) => (
-                <ListItemButton onClick={() => setActiveVersion(version)} key={version.path}>
+                <ListItemButton
+                  onClick={() => setActiveVersion(version)}
+                  key={version.path}
+                  sx={{
+                    width: ({ spacing }) => `calc(50% - ${spacing(0.5)})`,
+                    borderRadius: 1,
+                  }}
+                >
                   <ListItemIcon sx={{ minWidth: 6 }}>
                     <Radio
                       disableRipple
                       edge="start"
-                      checked={
-                        version.path + version.displayName ===
-                        activeVersion.path + activeVersion.displayName
-                      }
+                      checked={isSelected(version)}
                       sx={{ pointerEvents: 'none' }}
                     />
                   </ListItemIcon>
@@ -143,7 +160,7 @@ export function VersionsPage(): React.ReactElement {
                   />
                 </ListItemButton>
               ))}
-            </List>
+            </Stack>
           </Box>
         </Box>
       ) : (
