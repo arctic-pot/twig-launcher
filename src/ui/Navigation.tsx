@@ -57,7 +57,7 @@ export default function Navigation(): React.ReactElement {
         </List>
         <Divider />
         <List>
-          <NavListItem text="Accounts" icon="account_circle" page="/accounts" />
+          <NavListItem text="Skin" icon="styler" page="/skin" />
           <NavListItem text="Versions" icon="list" page="/versions" />
           <NavListItem text="Mods" icon="widgets" page="mods" />
           <NavListItem text="Resource Packs" icon="gradient" page="res-packs" />
