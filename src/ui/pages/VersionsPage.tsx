@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import {
   Box,
+  Grid,
   Icon,
   IconButton,
   InputBase,
@@ -16,19 +17,13 @@ import {
 } from '@mui/material';
 import NotFoundBox from '@/ui/placeholder/NotFoundBox';
 import {
-  GameIcon,
   getVersionDetails,
   getVersionsFrom,
   IGameVersion,
+  versionIcon,
   versionState,
 } from '@/base/version';
 import { useRecoilState } from 'recoil';
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-// @ts-ignore
-import GrassBlock from 'assets/version-icons/grass-block.webp'; // @ts-ignore
-import Furnace from 'assets/version-icons/furnace.webp';
-// import { act } from 'react-dom/test-utils'; // @ts-ignore
-/* eslint-enable @typescript-eslint/ban-ts-comment */
 
 export function VersionsPage(): React.ReactElement {
   const [filter, setFilter] = useState('');
@@ -101,13 +96,13 @@ export function VersionsPage(): React.ReactElement {
             flexGrow: 1,
             overflowY: 'auto',
             position: 'relative',
-            '&::-webkit-scrollbar': { width: 8 },
-            '&::-webkit-scrollbar-thumb': {
-              width: 8,
-              backgroundColor: ({ palette }) => palette.text.secondary,
-              borderRadius: 1,
-              opacity: 0.5,
-            },
+            // '&::-webkit-scrollbar': { width: 8 },
+            // '&::-webkit-scrollbar-thumb': {
+            //   width: 8,
+            //   backgroundColor: ({ palette }) => palette.text.secondary,
+            //   borderRadius: 1,
+            //   opacity: 0.5,
+            // },
           }}
         >
           <Box
@@ -119,48 +114,46 @@ export function VersionsPage(): React.ReactElement {
               right: 0,
             }}
           >
-            <Stack
+            <Grid
+              container
               direction="row"
-              gap={1}
+              spacing={1}
               sx={{ position: 'relative', pt: 11, flexWrap: 'wrap', px: 1 }}
             >
               {filteredVersion.map((version) => (
-                <ListItemButton
-                  onClick={() => setActiveVersion(version)}
-                  key={version.path}
-                  sx={{
-                    width: ({ spacing }) => `calc(50% - ${spacing(0.5)})`,
-                    borderRadius: 1,
-                  }}
-                >
-                  <ListItemIcon sx={{ minWidth: 6 }}>
-                    <Radio
-                      disableRipple
-                      edge="start"
-                      checked={isSelected(version)}
-                      sx={{ pointerEvents: 'none' }}
-                    />
-                  </ListItemIcon>
-                  <ListItemAvatar>
-                    <Stack justifyContent="center" alignItems="center">
-                      <img
-                        src={
-                          { [GameIcon.grassBlock]: GrassBlock, [GameIcon.furnace]: Furnace }[
-                            version.icon as 0
-                          ]
-                        }
-                        alt="Game Icon"
-                        style={{ width: 30, height: 30 }}
+                <Grid item xs={6} key={version.path}>
+                  <ListItemButton
+                    onClick={() => setActiveVersion(version)}
+                    sx={{
+                      width: '100%',
+                      borderRadius: 1,
+                    }}
+                  >
+                    <ListItemIcon sx={{ minWidth: 6 }}>
+                      <Radio
+                        disableRipple
+                        edge="start"
+                        checked={isSelected(version)}
+                        sx={{ pointerEvents: 'none' }}
                       />
-                    </Stack>
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={version.displayName}
-                    secondary={getVersionDetails(version).join(', ')}
-                  />
-                </ListItemButton>
+                    </ListItemIcon>
+                    <ListItemAvatar>
+                      <Stack justifyContent="center" alignItems="center">
+                        <img
+                          src={versionIcon(version)}
+                          alt="Game Icon"
+                          style={{ width: 30, height: 30 }}
+                        />
+                      </Stack>
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary={version.displayName}
+                      secondary={getVersionDetails(version).join(', ')}
+                    />
+                  </ListItemButton>
+                </Grid>
               ))}
-            </Stack>
+            </Grid>
           </Box>
         </Box>
       ) : (

@@ -3,6 +3,11 @@ import fs from 'fs-extra';
 import * as path from 'path';
 import YAML from 'yaml';
 
+/* eslint-disable @typescript-eslint/ban-ts-comment */ // @ts-ignore
+import GrassBlock from 'assets/version-icons/grass-block.webp'; // @ts-ignore
+import Furnace from 'assets/version-icons/furnace.webp'; // @ts-ignore
+/* eslint-enable @typescript-eslint/ban-ts-comment */
+
 export const versionState = atom({
   key: 'version',
   default: JSON.parse(localStorage.version ?? '{}') as IGameVersion,
@@ -55,47 +60,54 @@ export interface IGameVersion {
  * @return A promise with a list of versions.
  */
 export async function getVersionsFrom(paths: string[]): Promise<IGameVersion[]> {
-  return paths
-    .flatMap((rootPath) => {
-      // Get the versions directory
-      const versionsPath = path.resolve(rootPath, './versions');
-      return fs.readdirSync(versionsPath).map((directoryName) => {
-        try {
-          const directory = path.resolve(versionsPath, directoryName);
-          // Get the client.json and its data
-          // Client.json had renamed into <version name>.json.
-          const jsonPath = path.resolve(directory, `${directoryName}.json`);
-          const verInfoPath = path.resolve(directory, 'version_info.yml');
-          const manifest = fs.readJSONSync(jsonPath);
-          // fs.removeSync(verInfoPath);
-          // Try to read version info path for visual data and else.
-          // Init a version info file if it doesn't exist
-          if (!fs.existsSync(verInfoPath)) {
-            const defaultContent = YAML.stringify({
-              version: '1.0',
-              launcherData: {
-                twig: {
-                  icon: GameIcon.furnace,
+  return (
+    paths
+      .flatMap((rootPath) => {
+        // Get the versions directory
+        const versionsPath = path.resolve(rootPath, './versions');
+        return fs.readdirSync(versionsPath).map((directoryName) => {
+          try {
+            const directory = path.resolve(versionsPath, directoryName);
+            // Get the client.json and its data
+            // Client.json had renamed into <version name>.json.
+            const jsonPath = path.resolve(directory, `${directoryName}.json`);
+            const verInfoPath = path.resolve(directory, 'version_info.yml');
+            const manifest = fs.readJSONSync(jsonPath);
+            // fs.removeSync(verInfoPath);
+            // Try to read version info path for visual data and else.
+            // Init a version info file if it doesn't exist
+            if (!fs.existsSync(verInfoPath)) {
+              const defaultContent = YAML.stringify({
+                version: '1.0',
+                launcherData: {
+                  twig: {
+                    icon: GameIcon.furnace,
+                  },
                 },
-              },
-            });
-            fs.writeFileSync(verInfoPath, defaultContent);
+              });
+              fs.writeFileSync(verInfoPath, defaultContent);
+            }
+            const verInfo =
+              YAML.parse(fs.readFileSync(verInfoPath, 'utf-8'))?.launcherData?.twig ?? {};
+            return {
+              displayName: manifest.id,
+              path: directory,
+              rootPath: rootPath,
+              icon: verInfo.icon,
+              jar: manifest.jar,
+            };
+          } catch (e) {
+            // When catching unexpected errors, return nothing
+            return null;
           }
-          const verInfo =
-            YAML.parse(fs.readFileSync(verInfoPath, 'utf-8'))?.launcherData?.twig ?? {};
-          return {
-            displayName: manifest.id,
-            path: directory,
-            rootPath: rootPath,
-            icon: verInfo.icon,
-            jar: manifest.jar,
-          };
-        } catch (e) {
-          // When catching unexpected errors, return nothing
-          return null;
-        }
-      });
-    })
-    // Only keep true values, which removes `null`.
-    .filter((version) => version);
+        });
+      })
+      // Only keep true values, which removes `null`.
+      .filter((version) => version)
+  );
+}
+
+// The url of the version icon
+export function versionIcon(version: IGameVersion): string {
+  return { [GameIcon.grassBlock]: GrassBlock, [GameIcon.furnace]: Furnace }[version.icon as 0];
 }
