@@ -57,14 +57,18 @@ export default function SettingsPage(): React.ReactElement {
         {gamePaths && (
           <List disablePadding dense>
             {gamePaths.map((gamePath: string) => (
-              <ListItem sx={{ pl: 4 }} key={gamePath} secondaryAction={
-                <IconButton
-                  size="small"
-                  onClick={() => setGamePaths(gamePaths.filter((p: string) => p !== gamePath))}
-                >
-                  <Icon>close</Icon>
-                </IconButton>}>
-
+              <ListItem
+                sx={{ pl: 4 }}
+                key={gamePath}
+                secondaryAction={
+                  <IconButton
+                    size="small"
+                    onClick={() => setGamePaths(gamePaths.filter((p: string) => p !== gamePath))}
+                  >
+                    <Icon>close</Icon>
+                  </IconButton>
+                }
+              >
                 <ListItemText primary={gamePath} />
               </ListItem>
             ))}
