@@ -122,35 +122,37 @@ export function VersionsPage(): React.ReactElement {
             >
               {filteredVersion.map((version) => (
                 <Grid item xs={6} key={version.path}>
-                  <ListItemButton
-                    onClick={() => setActiveVersion(version)}
-                    sx={{
-                      width: '100%',
-                      borderRadius: 1,
-                    }}
-                  >
-                    <ListItemIcon sx={{ minWidth: 6 }}>
-                      <Radio
-                        disableRipple
-                        edge="start"
-                        checked={isSelected(version)}
-                        sx={{ pointerEvents: 'none' }}
-                      />
-                    </ListItemIcon>
-                    <ListItemAvatar>
-                      <Stack justifyContent="center" alignItems="center">
-                        <img
-                          src={versionIcon(version)}
-                          alt="Game Icon"
-                          style={{ width: 30, height: 30 }}
+                  <Paper elevation={isSelected(version) ? 1 : 0}>
+                    <ListItemButton
+                      onClick={() => setActiveVersion(version)}
+                      sx={{
+                        width: '100%',
+                        borderRadius: 1,
+                      }}
+                    >
+                      <ListItemIcon sx={{ minWidth: 6 }}>
+                        <Radio
+                          disableRipple
+                          edge="start"
+                          checked={isSelected(version)}
+                          sx={{ pointerEvents: 'none' }}
                         />
-                      </Stack>
-                    </ListItemAvatar>
-                    <ListItemText
-                      primary={version.displayName}
-                      secondary={getVersionDetails(version).join(', ')}
-                    />
-                  </ListItemButton>
+                      </ListItemIcon>
+                      <ListItemAvatar>
+                        <Stack justifyContent="center" alignItems="center">
+                          <img
+                            src={versionIcon(version)}
+                            alt="Game Icon"
+                            style={{ width: 30, height: 30 }}
+                          />
+                        </Stack>
+                      </ListItemAvatar>
+                      <ListItemText
+                        primary={version.displayName}
+                        secondary={getVersionDetails(version).join(', ')}
+                      />
+                    </ListItemButton>
+                  </Paper>
                 </Grid>
               ))}
             </Grid>
