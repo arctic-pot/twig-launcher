@@ -34,7 +34,10 @@
     "switch": "Switch Account",
     "login": {
       "microsoft": "Login via Microsoft"
-    }
+    },
+    "playerName": "Player name",
+    "createDone": "That's cool!",
+    "buyHint": "Didn't buy Minecraft? Head to minecraft.net for it!"
   },
   "version": {
     "external": "External"

@@ -31,7 +31,10 @@
     "switch": "切换账号",
     "login": {
       "microsoft": "使用 Microsoft 登录"
-    }
+    },
+    "playerName": "玩家名",
+    "createDone": "这就是了！",
+    "buyHint": "仍未购买Minecraft? 前往minecraft.net即可购买"
   },
   "version": {
     "external": "外部版本"

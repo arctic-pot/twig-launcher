@@ -166,19 +166,19 @@ export function AccountPicker({ open, onClose }: IAccountPickerProps): React.Rea
           <Stack direction="column" sx={{ width: '100%' }} alignItems="stretch" gap={1}>
             <LoadingButton variant="contained">{t('account.login.microsoft')}</LoadingButton>
             <Typography variant="caption">
-              Didn't buy Minecraft: Java Edition? Head to minecraft.net!
+              {t('account.buyHint')}
             </Typography>
           </Stack>
         )}
         {accountType === 'offline' && (
           <Stack direction="column" sx={{ width: '100%' }} alignItems="center" gap={1}>
-            <TextField sx={{ width: '100%' }} label="Player name" />
+            <TextField sx={{ width: '100%' }} label={t('account.playerName')} />
             <Button
               onClick={() => {
                 onClose.call(null);
               }}
             >
-              Done
+              {t('account.createDone')}
             </Button>
           </Stack>
         )}
