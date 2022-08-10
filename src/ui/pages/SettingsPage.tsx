@@ -9,6 +9,7 @@ import {
   ListItemText,
 } from '@mui/material';
 import { ipcRenderer } from 'electron';
+import { useTranslation } from 'react-i18next';
 
 // This is a hook which extends the origin setState.
 const useLocalBindState = (key: string, defaultValue?: unknown) => {
@@ -21,6 +22,7 @@ const useLocalBindState = (key: string, defaultValue?: unknown) => {
 };
 
 export default function SettingsPage(): React.ReactElement {
+  const { t } = useTranslation();
   //region settings states
   const [gamePaths, setGamePaths] = useLocalBindState('gamePaths', []);
   //endregion settings states
@@ -42,17 +44,14 @@ export default function SettingsPage(): React.ReactElement {
                   });
               }}
             >
-              Add
+              {t('general.add')}
             </Button>
           }
         >
           <ListItemIcon>
             <Icon>folder</Icon>
           </ListItemIcon>
-          <ListItemText
-            primary="Game paths"
-            secondary="The working directory (.minecraft) of the game"
-          />
+          <ListItemText primary={t('settings.gamePath.0')} secondary={t('settings.gamePath.1')} />
         </ListItem>
         {gamePaths && (
           <List disablePadding dense>

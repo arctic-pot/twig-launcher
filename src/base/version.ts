@@ -8,6 +8,8 @@ import GrassBlock from 'assets/version-icons/grass-block.webp'; // @ts-ignore
 import Furnace from 'assets/version-icons/furnace.webp'; // @ts-ignore
 /* eslint-enable @typescript-eslint/ban-ts-comment */
 
+import { t } from 'i18next';
+
 export interface IGamePatch {
   id: PatchType;
   version: string;
@@ -74,7 +76,7 @@ export class GameVersion implements IGameVersion {
         ...this.patches.map((patch) => `${getPatchName(patch.id)} ${patch.version}`),
       ];
     } else {
-      return ['External'];
+      return [t('version.external')];
     }
   }
 

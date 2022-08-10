@@ -20,12 +20,14 @@ import { useRecoilState } from 'recoil';
 import { versionState } from '@/base/version';
 import { LoadingButton } from '@mui/lab';
 import { useBooleanSwitcher } from '@/base/hook';
+import { useTranslation } from 'react-i18next';
 
 const InkWell = CardActionArea;
 
 // type AccountType = 'microsoft' | 'offline';
 
 export default function HomePage(): React.ReactElement {
+  const { t } = useTranslation();
   const [activeVersion] = useRecoilState(versionState);
   // const [accountType, setAccountType] = useState<AccountType>(
   //   localStorage.accountType ?? 'microsoft'
@@ -84,7 +86,7 @@ export default function HomePage(): React.ReactElement {
                   TheColdPot
                 </Typography>
                 <Typography variant="body2" component="div">
-                  Microsoft Account
+                  {t('account.microsoft')}
                 </Typography>
               </Stack>
             </Stack>
@@ -122,7 +124,7 @@ export default function HomePage(): React.ReactElement {
         <Box sx={{ flexGrow: 1 }} />
         <Button variant="contained" size="large" sx={{ height: 64 }}>
           <Typography variant="h6" component="span">
-            Launch
+            {t('general.launch')}
           </Typography>
         </Button>
       </Stack>
@@ -141,7 +143,7 @@ export function AccountPicker({ open, onClose }: IAccountPickerProps): React.Rea
 
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Swich account</DialogTitle>
+      <DialogTitle>Switch account</DialogTitle>
       <DialogContent>
         <ToggleButtonGroup
           value={accountType}

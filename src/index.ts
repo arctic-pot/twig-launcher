@@ -42,8 +42,14 @@ const createWindow = (): void => {
   mainWindow.on('maximize', () => mainWindow.webContents.send('maximize'));
   mainWindow.on('unmaximize', () => mainWindow.webContents.send('unmaximize'));
 
-  app.requestSingleInstanceLock();
+  app.on('second-instance', () => {
+    if (mainWindow.isMinimized()) mainWindow.restore();
+    mainWindow.focus();
+  });
 };
+
+const singleInstanceSuccess = app.requestSingleInstanceLock();
+if (!singleInstanceSuccess) app.quit();
 
 app.applicationMenu = null;
 

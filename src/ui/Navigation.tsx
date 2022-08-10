@@ -9,6 +9,7 @@ import {
   ListItemText,
 } from '@mui/material';
 import { useMatch, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 // interface NavItemData {
 //   text: string;
@@ -49,11 +50,13 @@ const NavListItem = ({ text, icon, page }: { text: string; icon: string; page: s
 // const Navs: NavItemData[] = [];
 
 export default function Navigation(): React.ReactElement {
+  const { t } = useTranslation();
+
   return (
     <Box sx={{ width: 240 }}>
       <List component="nav" disablePadding sx={{ px: 1 }}>
         <List>
-          <NavListItem text="Home" icon="home" page="/" />
+          <NavListItem text={t('general.home')} icon="home" page="/" />
         </List>
         <Divider />
         <List>

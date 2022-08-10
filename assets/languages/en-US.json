@@ -1,0 +1,21 @@
+{
+  "general": {
+    "launch": "Launch",
+    "home": "Home",
+    "add": "Add",
+    "import": "Import",
+    "delete": "Delete",
+    "search": "Search"
+  },
+  "account": {
+    "microsoft": "Microsoft",
+    "offline": "Offline",
+    "switch": "Switch Account"
+  },
+  "version": {
+    "external": "External"
+  },
+  "settings": {
+    "gamePath": ["Game paths", "The .minecraft directory for the game"]
+  }
+}

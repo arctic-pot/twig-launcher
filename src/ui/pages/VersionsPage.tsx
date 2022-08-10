@@ -18,8 +18,10 @@ import {
 import NotFoundBox from '@/ui/placeholder/NotFoundBox';
 import { GameVersion, versionState } from '@/base/version';
 import { useRecoilState } from 'recoil';
+import { useTranslation } from 'react-i18next';
 
 export function VersionsPage(): React.ReactElement {
+  const { t } = useTranslation();
   const [filter, setFilter] = useState('');
   const [versions, setVersions] = useState<GameVersion[]>([]);
   const [activeVersion, setActiveVersion] = useRecoilState(versionState);
@@ -65,16 +67,16 @@ export function VersionsPage(): React.ReactElement {
           <Stack direction="row" gap={1} p={1}>
             <InputBase
               sx={{ flexGrow: 1, pl: 1 }}
-              placeholder="Search..."
+              placeholder={`${t('general.search')}...`}
               value={filter}
               onChange={(event) => setFilter(event.target.value)}
             />
-            <Tooltip title="Import">
+            <Tooltip title={t('general.import')}>
               <IconButton>
                 <Icon>download</Icon>
               </IconButton>
             </Tooltip>
-            <Tooltip title="Add">
+            <Tooltip title={t('general.add')}>
               <IconButton>
                 <Icon>add</Icon>
               </IconButton>
