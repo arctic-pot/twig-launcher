@@ -1,7 +1,9 @@
 import React, { memo } from 'react';
 import { Stack, Typography } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 export default memo(function NotFoundBox(): React.ReactElement {
+  const { t } = useTranslation();
   // const emotionList = [
   //   'Σ(っ °Д °;)っ',
   //   '┌(。Д。)┐',
@@ -24,7 +26,7 @@ export default memo(function NotFoundBox(): React.ReactElement {
         〒▽〒
       </Typography>
       <Typography variant="h6" component="span">
-        Nothing's here.
+        {t('error.nothing')}
       </Typography>
     </Stack>
   );

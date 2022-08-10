@@ -97,7 +97,7 @@ export default function HomePage(): React.ReactElement {
             <InkWell onClick={() => navigate('/mods')} sx={{ borderRadius: 1 }}>
               <Paper sx={{ px: 2, py: 1 }} variant="outlined">
                 <Stack direction="row" gap={1}>
-                  <Typography>Mods: unavailable</Typography>
+                  <Typography>{t('glance.modCount', {count: 0})}</Typography>
                 </Stack>
               </Paper>
             </InkWell>
@@ -106,7 +106,7 @@ export default function HomePage(): React.ReactElement {
             <InkWell onClick={() => navigate('/res-packs')} sx={{ borderRadius: 1 }}>
               <Paper sx={{ px: 2, py: 1 }} variant="outlined">
                 <Stack direction="row" gap={1}>
-                  <Typography>Resource Packs: 3</Typography>
+                  <Typography>{t('glance.resourcePackCount', {count: 3})}</Typography>
                 </Stack>
               </Paper>
             </InkWell>
@@ -115,7 +115,7 @@ export default function HomePage(): React.ReactElement {
             <InkWell onClick={() => navigate('/shader-packs')} sx={{ borderRadius: 1 }}>
               <Paper sx={{ px: 2, py: 1 }} variant="outlined">
                 <Stack direction="row" gap={1}>
-                  <Typography>Shader Packs: unavailable</Typography>
+                  <Typography>{t('glance.shaderPackCount', {count: 0})}</Typography>
                 </Stack>
               </Paper>
             </InkWell>
@@ -139,11 +139,12 @@ interface IAccountPickerProps {
 }
 
 export function AccountPicker({ open, onClose }: IAccountPickerProps): React.ReactElement {
+  const { t } = useTranslation();
   const [accountType, setAccountType] = useState('ms');
 
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Switch account</DialogTitle>
+      <DialogTitle>{t('account.switch')}</DialogTitle>
       <DialogContent>
         <ToggleButtonGroup
           value={accountType}
@@ -154,8 +155,8 @@ export function AccountPicker({ open, onClose }: IAccountPickerProps): React.Rea
           color="primary"
           sx={{ '& .MuiToggleButton-root': { width: 128 } }}
         >
-          <ToggleButton value="ms">Microsoft</ToggleButton>
-          <ToggleButton value="offline">Offline</ToggleButton>
+          <ToggleButton value="ms">{t('account.microsoft')}</ToggleButton>
+          <ToggleButton value="offline">{t('account.offline')}</ToggleButton>
           <ToggleButton value="authlib" disabled>
             External
           </ToggleButton>
@@ -163,7 +164,7 @@ export function AccountPicker({ open, onClose }: IAccountPickerProps): React.Rea
         <Box sx={{ height: ({ spacing }) => spacing(2) }} />
         {accountType === 'ms' && (
           <Stack direction="column" sx={{ width: '100%' }} alignItems="stretch" gap={1}>
-            <LoadingButton variant="contained">Login with Microsoft</LoadingButton>
+            <LoadingButton variant="contained">{t('account.login.microsoft')}</LoadingButton>
             <Typography variant="caption">
               Didn't buy Minecraft: Java Edition? Head to minecraft.net!
             </Typography>

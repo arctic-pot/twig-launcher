@@ -1,0 +1,42 @@
+{
+  "general": {
+    "launch": "启动",
+    "home": "主页",
+    "add": "添加",
+    "import": "导入",
+    "delete": "删除",
+    "search": "搜索",
+    "skin": "皮肤",
+    "versions": "版本",
+    "mods": "Mod",
+    "packs": {
+      "resource": "资源包",
+      "shader": "光影包"
+    }
+  },
+  "glance": {
+    "modCount_zero": "Mod 不可用",
+    "modCount_other": "{{count}} 个 Mod",
+    "resourcePackCount_zero": "资源包不可用",
+    "resourcePackCount_other": "{{count}} 个资源包",
+    "shaderPackCount_zero": "光影不可用",
+    "shaderPackCount_other": "{{count}} 个光影包"
+  },
+  "error": {
+    "nothing": "这里什么都没有"
+  },
+  "account": {
+    "microsoft": "微软账号",
+    "offline": "离线账号",
+    "switch": "切换账号",
+    "login": {
+      "microsoft": "使用 Microsoft 登录"
+    }
+  },
+  "version": {
+    "external": "外部版本"
+  },
+  "settings": {
+    "gamePath": ["游戏路径", "游戏的 .minecraft 文件夹"]
+  }
+}

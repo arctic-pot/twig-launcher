@@ -60,11 +60,11 @@ export default function Navigation(): React.ReactElement {
         </List>
         <Divider />
         <List>
-          <NavListItem text="Skin" icon="styler" page="/skin" />
-          <NavListItem text="Versions" icon="list" page="/versions" />
-          <NavListItem text="Mods" icon="widgets" page="mods" />
-          <NavListItem text="Resource Packs" icon="gradient" page="res-packs" />
-          <NavListItem text="Shader Packs" icon="lightbulb" page="shader-packs" />
+          <NavListItem text={t('general.skin')} icon="styler" page="/skin" />
+          <NavListItem text={t('general.versions')} icon="list" page="/versions" />
+          <NavListItem text={t('general.mods')} icon="widgets" page="mods" />
+          <NavListItem text={t('general.packs.resource')} icon="gradient" page="res-packs" />
+          <NavListItem text={t('general.packs.shader')} icon="lightbulb" page="shader-packs" />
         </List>
         <Divider />
         <List>

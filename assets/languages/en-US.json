@@ -5,12 +5,36 @@
     "add": "Add",
     "import": "Import",
     "delete": "Delete",
-    "search": "Search"
+    "search": "Search",
+    "skin": "Skin",
+    "versions": "Versions",
+    "mods": "Mods",
+    "packs": {
+      "resource": "Resource packs",
+      "shader": "Shader packs"
+    }
+  },
+  "glance": {
+    "modCount_zero": "Mods unavailable",
+    "modCount_one": "1 mod",
+    "modCount_other": "{{count}} mods",
+    "resourcePackCount_zero": "Resource packs unavailable",
+    "resourcePackCount_one": "1 resource pack",
+    "resourcePackCount_other": "{{count}} resource packs",
+    "shaderPackCount_zero": "Shader packs unavailable",
+    "shaderPackCount_one": "1 shader pack",
+    "shaderPackCount_other": "{{count}} shader packs"
+  },
+  "error": {
+    "nothing": "Nothing's here"
   },
   "account": {
     "microsoft": "Microsoft",
     "offline": "Offline",
-    "switch": "Switch Account"
+    "switch": "Switch Account",
+    "login": {
+      "microsoft": "Login via Microsoft"
+    }
   },
   "version": {
     "external": "External"

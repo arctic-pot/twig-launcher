@@ -16,6 +16,7 @@ i18next
     fallbackLng: 'en-US',
     resources: {
       'en-US': { translation: lang.en_US },
+      'zh-CN': { translation: lang.zh_CN },
     },
   })
   .then(() => {
