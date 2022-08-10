@@ -16,18 +16,12 @@ import {
   Tooltip,
 } from '@mui/material';
 import NotFoundBox from '@/ui/placeholder/NotFoundBox';
-import {
-  getVersionDetails,
-  getVersionsFrom,
-  IGameVersion,
-  versionIcon,
-  versionState,
-} from '@/base/version';
+import { GameVersion, versionState } from '@/base/version';
 import { useRecoilState } from 'recoil';
 
 export function VersionsPage(): React.ReactElement {
   const [filter, setFilter] = useState('');
-  const [versions, setVersions] = useState<IGameVersion[]>([]);
+  const [versions, setVersions] = useState<GameVersion[]>([]);
   const [activeVersion, setActiveVersion] = useRecoilState(versionState);
   const filteredVersion = versions.filter((version) => version.displayName.includes(filter));
 
@@ -37,14 +31,13 @@ export function VersionsPage(): React.ReactElement {
 
   // Load versions from paths
   useEffect(() => {
-    getVersionsFrom(JSON.parse(localStorage.gamePaths)).then((gameVersions) =>
-      setVersions(gameVersions)
-    );
+    const games = GameVersion.fromPaths(JSON.parse(localStorage.gamePaths));
+    games.then((gameVersions) => setVersions(gameVersions));
   }, []);
 
   // Check if the `version` is selected
   const isSelected = useCallback(
-    (version: IGameVersion) =>
+    (version: GameVersion) =>
       activeVersion.displayName === version.displayName && activeVersion.path === version.path,
     [activeVersion]
   );
@@ -141,7 +134,7 @@ export function VersionsPage(): React.ReactElement {
                       <ListItemAvatar>
                         <Stack justifyContent="center" alignItems="center">
                           <img
-                            src={versionIcon(version)}
+                            src={version.visualIcon}
                             alt="Game Icon"
                             style={{ width: 30, height: 30 }}
                           />
@@ -149,7 +142,7 @@ export function VersionsPage(): React.ReactElement {
                       </ListItemAvatar>
                       <ListItemText
                         primary={version.displayName}
-                        secondary={getVersionDetails(version).join(', ')}
+                        secondary={version.details.join(', ')}
                       />
                     </ListItemButton>
                   </Paper>
