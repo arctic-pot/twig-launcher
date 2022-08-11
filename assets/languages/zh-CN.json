@@ -12,7 +12,8 @@
     "packs": {
       "resource": "资源包",
       "shader": "光影包"
-    }
+    },
+    "settings": "设置"
   },
   "glance": {
     "modCount_zero": "Mod 不可用",
@@ -34,7 +35,8 @@
     },
     "playerName": "玩家名",
     "createDone": "这就是了！",
-    "buyHint": "仍未购买Minecraft? 前往minecraft.net即可购买"
+    "buyHint": "仍未购买Minecraft? 前往minecraft.net即可购买",
+    "nameHint": "建议使用仅含有英文字母和下划线的名称"
   },
   "version": {
     "external": "外部版本"

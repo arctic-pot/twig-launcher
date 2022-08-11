@@ -1,7 +1,6 @@
 import { atom } from 'recoil';
 import fs from 'fs-extra';
 import * as path from 'path';
-import YAML from 'yaml';
 
 /* eslint-disable @typescript-eslint/ban-ts-comment */ // @ts-ignore
 import GrassBlock from 'assets/version-icons/grass-block.webp'; // @ts-ignore
@@ -98,15 +97,15 @@ export class GameVersion implements IGameVersion {
               // Get the client.json and its data
               // Client.json had renamed into <version name>.json.
               const jsonPath = path.resolve(directory, `${directoryName}.json`);
-              const verInfoPath = path.resolve(directory, 'version_info.yml');
+              const verInfoPath = path.resolve(directory, 'VERSION_INFO');
               const manifest = fs.readJSONSync(jsonPath);
               // fs.removeSync(verInfoPath);
               // Try to read version info path for visual data and else.
               // Init a version info file if it doesn't exist
               if (!fs.existsSync(verInfoPath)) {
-                const defaultContent = YAML.stringify({
+                const defaultContent = JSON.stringify({
                   version: '1.0',
-                  launcherData: {
+                  specific: {
                     twig: {
                       icon: GameIcon.furnace,
                     },
@@ -115,7 +114,7 @@ export class GameVersion implements IGameVersion {
                 fs.writeFileSync(verInfoPath, defaultContent);
               }
               const verInfo =
-                YAML.parse(fs.readFileSync(verInfoPath, 'utf-8'))?.launcherData?.twig ?? {};
+                JSON.parse(fs.readFileSync(verInfoPath, 'utf-8'))?.specific?.twig ?? {};
               return new GameVersion({
                 displayName: manifest.id,
                 path: directory,

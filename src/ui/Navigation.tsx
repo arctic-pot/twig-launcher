@@ -73,7 +73,7 @@ export default function Navigation(): React.ReactElement {
         </List>
         <Divider />
         <List>
-          <NavListItem text="Settings" icon="settings" page="settings" />
+          <NavListItem text={t('general.settings')} icon="settings" page="settings" />
           {/*<NavListItem text="Info" icon="info" page="info" />*/}
           {/*<NavListItem text="Sponsor" icon="redeem" page="sponsor" />*/}
         </List>

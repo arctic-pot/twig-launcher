@@ -12,7 +12,8 @@
     "packs": {
       "resource": "Resource packs",
       "shader": "Shader packs"
-    }
+    },
+    "settings": "Settings"
   },
   "glance": {
     "modCount_zero": "Mods unavailable",
@@ -37,7 +38,8 @@
     },
     "playerName": "Player name",
     "createDone": "That's cool!",
-    "buyHint": "Didn't buy Minecraft? Head to minecraft.net for it!"
+    "buyHint": "Didn't buy Minecraft? Head to minecraft.net for it!",
+    "nameHint": "It's recommended to have only English letters and underscores."
   },
   "version": {
     "external": "External"
