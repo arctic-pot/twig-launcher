@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import {
+  Box,
   Button,
   Icon,
   IconButton,
   List,
   ListItem,
-  ListItemIcon,
+  // ListItemIcon,
   ListItemText,
+  ListSubheader,
+  Slider,
+  Stack,
 } from '@mui/material';
 import { ipcRenderer } from 'electron';
 import { useTranslation } from 'react-i18next';
+import * as os from 'os';
 
 // This is a hook which extends the origin setState.
 const useLocalBindState = (key: string, defaultValue?: unknown) => {
@@ -28,8 +33,8 @@ export default function SettingsPage(): React.ReactElement {
   //endregion settings states
 
   return (
-    <>
-      <List>
+    <Stack direction="column" sx={{ py: 1, height: '100%' }}>
+      <List subheader={<ListSubheader>{t('settings.general')}</ListSubheader>}>
         <ListItem
           secondaryAction={
             <Button
@@ -48,19 +53,20 @@ export default function SettingsPage(): React.ReactElement {
             </Button>
           }
         >
-          <ListItemIcon>
-            <Icon>folder</Icon>
-          </ListItemIcon>
+          {/*<ListItemIcon>*/}
+          {/*  <Icon>folder</Icon>*/}
+          {/*</ListItemIcon>*/}
           <ListItemText primary={t('settings.gamePath.0')} secondary={t('settings.gamePath.1')} />
         </ListItem>
         {gamePaths && (
           <List disablePadding dense>
             {gamePaths.map((gamePath: string) => (
               <ListItem
-                sx={{ pl: 4 }}
+                sx={{ pl: 8 }}
                 key={gamePath}
                 secondaryAction={
                   <IconButton
+
                     size="small"
                     onClick={() => setGamePaths(gamePaths.filter((p: string) => p !== gamePath))}
                   >
@@ -73,7 +79,38 @@ export default function SettingsPage(): React.ReactElement {
             ))}
           </List>
         )}
+
+        <ListItem>
+          {/*<ListItemIcon>*/}
+          {/*  <Icon>memory</Icon>*/}
+          {/*</ListItemIcon>*/}
+          <ListItemText
+            primary="Max allocated memory"
+            secondary={
+              <Slider
+                marks={[{ value: 2, label: '2.0' }]}
+                valueLabelFormat={(value) => `${value} GB`}
+                max={~~(os.totalmem() / 1073741824)}
+                min={1}
+                step={0.2}
+                valueLabelDisplay="auto"
+              />
+            }
+          />
+        </ListItem>
+        <Box sx={{ pr: 4, pl: 9 }}></Box>
       </List>
-    </>
+      <List subheader={<ListSubheader>{t('settings.customize')}</ListSubheader>}>
+        <ListItem>
+          {/*<ListItemIcon>*/}
+          {/*  <Icon>palette</Icon>*/}
+          {/*</ListItemIcon>*/}
+          <ListItemText
+            primary={t('settings.themeColor')}
+            secondary={'Coming soon!'}
+          />
+        </ListItem>
+      </List>
+    </Stack>
   );
 }

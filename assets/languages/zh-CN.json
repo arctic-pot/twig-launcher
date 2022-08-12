@@ -42,6 +42,9 @@
     "external": "外部版本"
   },
   "settings": {
-    "gamePath": ["游戏路径", "游戏的 .minecraft 文件夹"]
+    "general": "常规",
+    "customize": "自定义",
+    "gamePath": ["游戏文件夹", "游戏的 .minecraft 文件夹"],
+    "themeColor": "主题色"
   }
 }
