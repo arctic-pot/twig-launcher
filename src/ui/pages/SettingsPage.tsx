@@ -56,7 +56,7 @@ export default function SettingsPage(): React.ReactElement {
           {/*<ListItemIcon>*/}
           {/*  <Icon>folder</Icon>*/}
           {/*</ListItemIcon>*/}
-          <ListItemText primary={t('settings.gamePath.0')} secondary={t('settings.gamePath.1')} />
+          <ListItemText primary={t('settings.gamePath')} />
         </ListItem>
         {gamePaths && (
           <List disablePadding dense>
@@ -85,7 +85,7 @@ export default function SettingsPage(): React.ReactElement {
           {/*  <Icon>memory</Icon>*/}
           {/*</ListItemIcon>*/}
           <ListItemText
-            primary="Max allocated memory"
+            primary={t('settings.maxMem')}
             secondary={
               <Slider
                 marks={[{ value: 2, label: '2.0' }]}

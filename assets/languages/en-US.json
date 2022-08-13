@@ -47,7 +47,8 @@
   "settings": {
     "general": "General",
     "customize": "Customize",
-    "gamePath": ["Game paths", "The .minecraft directory for the game"],
-    "themeColor": "Theme color"
+    "gamePath": ".minecraft directories",
+    "themeColor": "Theme color",
+    "maxMem": "Max allocated memory"
   }
 }

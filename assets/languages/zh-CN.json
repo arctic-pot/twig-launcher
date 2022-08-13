@@ -44,7 +44,8 @@
   "settings": {
     "general": "常规",
     "customize": "自定义",
-    "gamePath": ["游戏文件夹", "游戏的 .minecraft 文件夹"],
-    "themeColor": "主题色"
+    "gamePath": ".minecraft 文件夹",
+    "themeColor": "主题色",
+    "maxMem": "最高分配内存"
   }
 }
