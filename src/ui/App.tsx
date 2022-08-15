@@ -22,6 +22,7 @@ import Navigation from '@/ui/Navigation';
 import { RecoilRoot } from 'recoil';
 import { VersionsPage } from '@/ui/pages/VersionsPage';
 import SettingsPage from '@/ui/pages/SettingsPage';
+import { SnackbarProvider } from 'notistack';
 
 const OperationButton = styled(ButtonBase)({
   width: 48,
@@ -98,57 +99,64 @@ export default function App(): React.ReactElement {
     <HashRouter>
       <RecoilRoot>
         <ThemeProvider theme={theme}>
-          <Stack direction="column" sx={{ width: '100vw', height: '100vh' }}>
-            <AppBar position="static">
-              <Toolbar
-                variant="dense"
-                sx={{
-                  WebkitAppRegion: 'drag',
-                  '& .nd': { WebkitAppRegion: 'no-drag' },
-                }}
-              >
-                <Typography variant="h6" component="div" sx={{ flexGrow: 1, textAlign: 'center' }}>
-                  Twig Launcher
-                </Typography>
-                <Stack
-                  sx={{ position: 'absolute', top: 0, right: 0, height: '100%' }}
-                  className="nd"
-                  direction="row"
+          <SnackbarProvider maxSnack={3}>
+            <Stack direction="column" sx={{ width: '100vw', height: '100vh' }}>
+              <AppBar position="static">
+                <Toolbar
+                  variant="dense"
+                  sx={{
+                    WebkitAppRegion: 'drag',
+                    '& .nd': { WebkitAppRegion: 'no-drag' },
+                  }}
                 >
-                  <OperationButton onClick={() => ipcRenderer.send('minimize')}>
-                    <Icon>minimize</Icon>
-                  </OperationButton>
-                  {maximized ? (
-                    <OperationButton onClick={() => ipcRenderer.send('unmaximize')}>
-                      <Icon>fullscreen_exit</Icon>
+                  <Typography
+                    variant="h6"
+                    component="div"
+                    sx={{ flexGrow: 1, textAlign: 'center' }}
+                  >
+                    Twig Launcher
+                  </Typography>
+                  <Stack
+                    sx={{ position: 'absolute', top: 0, right: 0, height: '100%' }}
+                    className="nd"
+                    direction="row"
+                  >
+                    <OperationButton onClick={() => ipcRenderer.send('minimize')}>
+                      <Icon>minimize</Icon>
                     </OperationButton>
-                  ) : (
-                    <OperationButton onClick={() => ipcRenderer.send('maximize')}>
-                      <Icon>fullscreen</Icon>
+                    {maximized ? (
+                      <OperationButton onClick={() => ipcRenderer.send('unmaximize')}>
+                        <Icon>fullscreen_exit</Icon>
+                      </OperationButton>
+                    ) : (
+                      <OperationButton onClick={() => ipcRenderer.send('maximize')}>
+                        <Icon>fullscreen</Icon>
+                      </OperationButton>
+                    )}
+                    <OperationButton onClick={() => ipcRenderer.send('close')}>
+                      <Icon>close</Icon>
                     </OperationButton>
-                  )}
-                  <OperationButton onClick={() => ipcRenderer.send('close')}>
-                    <Icon>close</Icon>
-                  </OperationButton>
-                </Stack>
-              </Toolbar>
-            </AppBar>
-            <Stack sx={{ flexGrow: 1 }} direction="row">
-              <Navigation />
-              <Divider orientation="vertical" flexItem />
-              <Box sx={{ flexGrow: 1 }}>
-                <Box sx={{ width: '100%', height: '100%' }}>
-                  <Routes>
-                    <Route index element={<HomePage />} />
-                    {/*<Route path="/accounts" element={<AccountsPage />} />*/}
-                    <Route path="/versions" element={<VersionsPage />} />
-                    <Route path="/settings" element={<SettingsPage />} />
-                    <Route path="/sponsor" element={<SponsorPage />} />
-                  </Routes>
+                  </Stack>
+                </Toolbar>
+              </AppBar>
+              <Stack sx={{ flexGrow: 1 }} direction="row">
+                <Navigation />
+                <Divider orientation="vertical" flexItem />
+                <Box sx={{ flexGrow: 1 }}>
+                  <Box sx={{ width: '100%', height: '100%' }}>
+                    <Routes>
+                      <Route index element={<HomePage />} />
+                      {/*<Route path="/accounts" element={<AccountsPage />} />*/}
+                      <Route path="/versions" element={<VersionsPage />} />
+                      <Route path="/settings" element={<SettingsPage />} />
+                      <Route path="/sponsor" element={<SponsorPage />} />
+                      <Route path="/profiles" element={<></>} />
+                    </Routes>
+                  </Box>
                 </Box>
-              </Box>
+              </Stack>
             </Stack>
-          </Stack>
+          </SnackbarProvider>
         </ThemeProvider>
       </RecoilRoot>
     </HashRouter>

@@ -33,8 +33,9 @@ export function VersionsPage(): React.ReactElement {
 
   // Load versions from paths
   useEffect(() => {
-    const games = GameVersion.fromPaths(JSON.parse(localStorage.gamePaths));
-    games.then((gameVersions) => setVersions(gameVersions));
+    GameVersion.fromPaths(JSON.parse(localStorage.gamePaths)).then((gameVersions) =>
+      setVersions(gameVersions)
+    );
   }, []);
 
   // Check if the `version` is selected

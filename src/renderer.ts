@@ -12,7 +12,7 @@ console.log(lang);
 i18next
   .use(initReactI18next)
   .init({
-    lng: localStorage.lang ?? navigator.language ?? 'en-US',
+    lng: (localStorage.lang ?? 'SYSTEM') !== 'SYSTEM' ? localStorage.lang : navigator.language,
     fallbackLng: 'en-US',
     resources: {
       'en-US': { translation: lang.en_US },

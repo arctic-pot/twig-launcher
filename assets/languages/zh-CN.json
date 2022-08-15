@@ -42,10 +42,14 @@
     "external": "外部版本"
   },
   "settings": {
+    "needRestart": "需要重启应用以应用这些更改",
+    "restartNow": "立即重启",
     "general": "常规",
     "customize": "自定义",
     "gamePath": ".minecraft 文件夹",
     "themeColor": "主题色",
-    "maxMem": "最高分配内存"
+    "maxMem": "最高分配内存",
+    "lang": "语言",
+    "followSys": "跟随系统"
   }
 }

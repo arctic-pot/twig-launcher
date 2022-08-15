@@ -45,10 +45,14 @@
     "external": "External"
   },
   "settings": {
+    "needRestart": "Restart is required to apply the changes",
+    "restartNow": "Restart now",
     "general": "General",
     "customize": "Customize",
     "gamePath": ".minecraft directories",
     "themeColor": "Theme color",
-    "maxMem": "Max allocated memory"
+    "maxMem": "Max allocated memory",
+    "followSys": "Follow system",
+    "lang": "Language"
   }
 }

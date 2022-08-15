@@ -57,6 +57,7 @@ export default function Navigation(): React.ReactElement {
       <List component="nav" disablePadding sx={{ px: 1 }}>
         <List>
           <NavListItem text={t('general.home')} icon="home" page="/" />
+          <NavListItem text={'Profiles'} icon="space_dashboard" page="profiles" />
         </List>
         <Divider />
         <List>
@@ -76,10 +77,6 @@ export default function Navigation(): React.ReactElement {
           <NavListItem text={t('general.settings')} icon="settings" page="settings" />
           {/*<NavListItem text="Info" icon="info" page="info" />*/}
           {/*<NavListItem text="Sponsor" icon="redeem" page="sponsor" />*/}
-        </List>
-        <Divider />
-        <List>
-          <NavListItem text="Extensions" icon="extension" page="extensions" />
         </List>
         {process.env.NODE_ENV === 'development' && (
           <>
