@@ -37,6 +37,7 @@ interface IGameVersion {
   jar: string;
   // The minecraft version
   version?: string;
+  manifest?: Record<string, unknown>
 }
 
 export class GameVersion implements IGameVersion {
@@ -48,6 +49,7 @@ export class GameVersion implements IGameVersion {
   public readonly release?: boolean;
   public readonly rootPath: string;
   public readonly version?: string;
+  public readonly manifest?: Record<string, unknown>;
 
   protected constructor(game: IGameVersion) {
     this.displayName = game.displayName;
@@ -78,6 +80,10 @@ export class GameVersion implements IGameVersion {
       return [t('version.external')];
     }
   }
+
+  // public static withoutManifest(origin: GameVersion): GameVersion {
+  //   return origin;
+  // }
 
   /**
    * Scan a `.minecraft` directory to get versions from it.
@@ -121,6 +127,7 @@ export class GameVersion implements IGameVersion {
                 rootPath: rootPath,
                 icon: verInfo.icon,
                 jar: manifest.jar,
+                manifest: manifest,
               });
             } catch (e) {
               // When catching unexpected errors, return nothing
