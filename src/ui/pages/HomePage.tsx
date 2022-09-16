@@ -1,19 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Avatar,
   Box,
   Button,
-  Card,
-  CardActionArea,
-  CardActions,
-  CardContent,
+  ButtonGroup,
   Chip,
   Dialog,
   DialogContent,
   DialogTitle,
-  Divider,
   Icon,
-  IconButton,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Paper,
   Stack,
   TextField,
   ToggleButton,
@@ -27,6 +28,8 @@ import { LoadingButton } from '@mui/lab';
 import { useBooleanSwitcher } from '@/base/hook';
 import { useTranslation } from 'react-i18next';
 import * as electron from 'electron';
+import fs from 'fs-extra';
+import * as path from 'path';
 
 // type AccountType = 'microsoft' | 'offline';
 
@@ -38,7 +41,18 @@ export default function HomePage(): React.ReactElement {
   // );
   const [showAccountDialog, setShowAccountDialog] = useState<boolean>(false);
   const [openAccountDialog, closeAccountDialog] = useBooleanSwitcher(setShowAccountDialog);
+  // This is for display
+  const [versionSize, setVersionSize] = useState<string>(void 0);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const gamePath = activeVersion.path;
+    fs.readdir(gamePath)
+      .then((files) => files.find((file) => file.endsWith('.jar')))
+      .then((jarPath) => path.resolve(gamePath, jarPath))
+      .then(fs.stat)
+      .then((stat) => setVersionSize((~~((stat.size / 1024 / 1024) * 100) / 100).toString() + ' MB'));
+  }, []);
 
   // useEffect(() => {
   //   localStorage.accountType = accountType;
@@ -51,59 +65,66 @@ export default function HomePage(): React.ReactElement {
         gap={2}
         sx={{ p: 2, width: '100%', height: '100%', boxSizing: 'border-box' }}
       >
-        <Card>
-          <CardActionArea onClick={() => navigate('/versions')}>
-            <CardContent>
-              <Stack direction="row" alignItems="center" gap={2}>
-                <img
-                  src={activeVersion.visualIcon}
-                  alt="Game Icon"
-                  style={{ width: 45, height: 45 }}
-                />
-                <Stack direction="column">
-                  <Typography variant="h6" component="div">
-                    {activeVersion.displayName}
-                  </Typography>
-                  <Typography variant="body2" component="div">
-                    {activeVersion.details.join(', ')}
-                  </Typography>
-                </Stack>
-              </Stack>
-            </CardContent>
-          </CardActionArea>
-          <CardActions>
-            <Chip label={t('glance.modCount', { count: 0 })} />
-            <Chip label={t('glance.resourcePackCount', { count: 3 })} />
-            <Chip label={t('glance.shaderPackCount', { count: 0 })} />
-            <Divider orientation="vertical" variant="middle" flexItem sx={{ mx: 1 }} />
-            <IconButton onClick={() => electron.shell.openPath(activeVersion.path)} size="small">
-              <Icon>folder</Icon>
-            </IconButton>
-          </CardActions>
-        </Card>
-        <Card>
-          <CardActionArea sx={{ borderRadius: 1 }} onClick={openAccountDialog}>
-            <CardContent>
-              <Stack direction="row" alignItems="center" gap={2}>
-                <Avatar>CP</Avatar>
-                <Stack direction="column">
-                  <Typography variant="h6" component="div">
-                    TheColdPot
-                  </Typography>
-                  <Typography variant="body2" component="div">
-                    {t('account.microsoft')}
-                  </Typography>
-                </Stack>
-              </Stack>
-            </CardContent>
-          </CardActionArea>
-        </Card>
+        {/*<CardActions>*/}
+        {/*  <Chip label={t('glance.modCount', { count: 0 })} />*/}
+        {/*  <Chip label={t('glance.resourcePackCount', { count: 3 })} />*/}
+        {/*  <Chip label={t('glance.shaderPackCount', { count: 0 })} />*/}
+        {/*  <Divider orientation="vertical" variant="middle" flexItem sx={{ mx: 1 }} />*/}
+        {/*</CardActions>*/}
         <Box sx={{ flexGrow: 1 }} />
-        <Button variant="contained" size="large" sx={{ height: 64 }}>
-          <Typography variant="h6" component="span">
-            {t('general.launch')}
-          </Typography>
-        </Button>
+        <Stack direction="row" gap={2} alignItems="flex-end">
+          <Paper sx={{ flexGrow: 1 }}>
+            <List>
+              <ListItemButton onClick={() => navigate('/versions')}>
+                <ListItemIcon>
+                  {/*<img*/}
+                  {/*  src={activeVersion.visualIcon}*/}
+                  {/*  alt="Game Icon"*/}
+                  {/*  style={{ width: 45, height: 45 }}*/}
+                  {/*/>*/}
+                </ListItemIcon>
+                <ListItemText
+                  primary={activeVersion.displayName}
+                  secondary={activeVersion.details.join(', ')}
+                />
+              </ListItemButton>
+              <ListItemButton onClick={openAccountDialog}>
+                <ListItemIcon>
+                  <Avatar>CP</Avatar>
+                </ListItemIcon>
+                <ListItemText primary="TheColdPot" secondary="Microsoft Account" />
+              </ListItemButton>
+              <ListItem>
+                <Stack direction="row" gap={1}>
+                  <Chip
+                    icon={<Icon fontSize="small">folder_open</Icon>}
+                    onClick={() => electron.shell.openPath(activeVersion.path)}
+                    label={versionSize ?? '? MB'}
+                  />
+                  <Chip
+                    icon={<Icon fontSize="small">widgets</Icon>}
+                    onClick={() => navigate('/mods')}
+                    label={t('glance.modCount', { count: 1 })}
+                  />
+                </Stack>
+              </ListItem>
+            </List>
+          </Paper>
+          <Stack direction="column">
+            <ButtonGroup variant="contained" sx={{ height: 64 }} disableElevation>
+              <Button size="large" sx={{ width: 240 }} onClick={() => {
+                console.log(activeVersion.generateLaunchScripts())
+              }}>
+                <Typography variant="h6" component="span">
+                  {t('general.launch')}
+                </Typography>
+              </Button>
+              <Button>
+                <Icon>more_horiz</Icon>
+              </Button>
+            </ButtonGroup>
+          </Stack>
+        </Stack>
       </Stack>
       <AccountPicker open={showAccountDialog} onClose={closeAccountDialog} />
     </>

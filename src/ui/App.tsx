@@ -101,7 +101,7 @@ export default function App(): React.ReactElement {
         <ThemeProvider theme={theme}>
           <SnackbarProvider maxSnack={3}>
             <Stack direction="column" sx={{ width: '100vw', height: '100vh' }}>
-              <AppBar position="static">
+              <AppBar position="static" sx={{bgcolor: 'background.paper', color: 'text.secondary'}}>
                 <Toolbar
                   variant="dense"
                   sx={{
@@ -112,7 +112,7 @@ export default function App(): React.ReactElement {
                   <Typography
                     variant="h6"
                     component="div"
-                    sx={{ flexGrow: 1, textAlign: 'center' }}
+                    sx={{ flexGrow: 1 }}
                   >
                     Twig Launcher
                   </Typography>

@@ -28,14 +28,16 @@ export function VersionsPage(): React.ReactElement {
   const filteredVersion = versions.filter((version) => version.displayName.includes(filter));
 
   useEffect(() => {
+    // console.log(activeVersion);
     localStorage.version = JSON.stringify(activeVersion);
   }, [activeVersion]);
 
   // Load versions from paths
   useEffect(() => {
-    GameVersion.fromPaths(JSON.parse(localStorage.gamePaths)).then((gameVersions) =>
-      setVersions(gameVersions)
-    );
+    GameVersion.fromPaths(JSON.parse(localStorage.gamePaths)).then((gameVersions) => {
+      setVersions(gameVersions);
+      console.log(gameVersions)
+    });
   }, []);
 
   // Check if the `version` is selected

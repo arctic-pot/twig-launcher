@@ -1,6 +1,7 @@
 import { atom } from 'recoil';
 import fs from 'fs-extra';
 import * as path from 'path';
+import { v4 as uuid4 } from 'uuid'
 
 /* eslint-disable @typescript-eslint/ban-ts-comment */ // @ts-ignore
 import GrassBlock from 'assets/version-icons/grass-block.webp'; // @ts-ignore
@@ -38,6 +39,7 @@ interface IGameVersion {
   // The minecraft version
   version?: string;
   manifest?: Record<string, unknown>
+  token: string;
 }
 
 export class GameVersion implements IGameVersion {
@@ -49,7 +51,9 @@ export class GameVersion implements IGameVersion {
   public readonly release?: boolean;
   public readonly rootPath: string;
   public readonly version?: string;
-  public readonly manifest?: Record<string, unknown>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  public readonly manifest?: Record<string, any>;
+  public readonly token: string;
 
   protected constructor(game: IGameVersion) {
     this.displayName = game.displayName;
@@ -60,6 +64,7 @@ export class GameVersion implements IGameVersion {
     this.release = game.release;
     this.rootPath = game.rootPath;
     this.version = game.version;
+    this.manifest = game.manifest;
   }
 
   public get visualIcon(): string {
@@ -81,16 +86,32 @@ export class GameVersion implements IGameVersion {
     }
   }
 
+  public generateLaunchScripts(): string {
+    return `java`
+  }
+
   // public static withoutManifest(origin: GameVersion): GameVersion {
   //   return origin;
   // }
+
+  protected static get defaultManifest(): unknown {
+    return {
+      version: '1.0',
+      isolate: true,
+      spec: {
+        twig: {
+          icon: GameIcon.grassBlock,
+          token: uuid4()
+        }
+      }
+    };
+  }
 
   /**
    * Scan a `.minecraft` directory to get versions from it.
    * @param paths The `.minecraft` directory
    * @return A promise with a list of versions.
    */
-
   public static async fromPaths(paths: string[]): Promise<GameVersion[]> {
     return (
       paths
@@ -109,18 +130,11 @@ export class GameVersion implements IGameVersion {
               // Try to read version info path for visual data and else.
               // Init a version info file if it doesn't exist
               if (!fs.existsSync(verInfoPath)) {
-                const defaultContent = JSON.stringify({
-                  version: '1.0',
-                  specific: {
-                    twig: {
-                      icon: GameIcon.furnace,
-                    },
-                  },
-                });
-                fs.writeFileSync(verInfoPath, defaultContent);
+                fs.writeJsonSync(verInfoPath, this.defaultManifest);
               }
               const verInfo =
-                JSON.parse(fs.readFileSync(verInfoPath, 'utf-8'))?.specific?.twig ?? {};
+                fs.readJsonSync(verInfoPath, 'utf-8').specific.twig;
+              // console.log(manifest)
               return new GameVersion({
                 displayName: manifest.id,
                 path: directory,
@@ -128,6 +142,7 @@ export class GameVersion implements IGameVersion {
                 icon: verInfo.icon,
                 jar: manifest.jar,
                 manifest: manifest,
+                token: verInfo.token,
               });
             } catch (e) {
               // When catching unexpected errors, return nothing

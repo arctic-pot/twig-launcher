@@ -17,11 +17,7 @@
   },
   "glance": {
     "modCount_zero": "Mod 不可用",
-    "modCount_other": "{{count}} 个 Mod",
-    "resourcePackCount_zero": "资源包不可用",
-    "resourcePackCount_other": "{{count}} 个资源包",
-    "shaderPackCount_zero": "光影不可用",
-    "shaderPackCount_other": "{{count}} 个光影包"
+    "modCount_other": "{{count}} 个 Mod"
   },
   "error": {
     "nothing": "这里什么都没有"

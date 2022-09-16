@@ -16,15 +16,8 @@
     "settings": "Settings"
   },
   "glance": {
-    "modCount_zero": "Mods unavailable",
     "modCount_one": "1 mod",
-    "modCount_other": "{{count}} mods",
-    "resourcePackCount_zero": "Resource packs unavailable",
-    "resourcePackCount_one": "1 resource pack",
-    "resourcePackCount_other": "{{count}} resource packs",
-    "shaderPackCount_zero": "Shader packs unavailable",
-    "shaderPackCount_one": "1 shader pack",
-    "shaderPackCount_other": "{{count}} shader packs"
+    "modCount_other": "{{count}} mods"
   },
   "error": {
     "nothing": "Nothing's here"
